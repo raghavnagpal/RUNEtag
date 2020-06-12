@@ -509,6 +509,24 @@ int main (int argc, char** argv)
 		std::cout << "  " << num_refined << " refined. " << std::endl << std::endl;
 	}
 
+	if(0)
+    {
+        cv::Mat dbgout = input_image.clone();
+        std::cout << "> Rendering tags" << std::endl;
+        std::cout << "   -> " << tagsimg_filename << std::endl << std::endl;
+
+        for( size_t i=0; i<tags_found.size(); ++i )
+        {
+                cv::runetag::AuxRenderer::drawDetectedMarker(dbgout,tags_found[i],intrinsics);
+
+        }
+
+        cv::imwrite( "output.jpg", dbgout );
+        //        TODO edit ragahv
+        return 0;
+    }
+
+
 
 #ifdef ENABLE_TESTS
 	if( tags_found.size() > 0 && doocclusiontest)
@@ -532,7 +550,7 @@ int main (int argc, char** argv)
     for( size_t i=0; i<tags_found.size(); ++i )
     {
         bool poseok;
-        
+
         std::cout << "  Tag IDX:" << tags_found[i].associatedModel()->getIDX();
 
 		unsigned int flags=0;
@@ -556,7 +574,9 @@ int main (int argc, char** argv)
     }
     std::cout << std::endl;
 
-
+    if(tags_found.size() ==0){
+        return 0;
+    }
 
     if( tagsimg_filename.length()>0 )
     {

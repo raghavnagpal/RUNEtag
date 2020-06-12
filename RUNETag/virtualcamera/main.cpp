@@ -3,7 +3,7 @@
 
 #include <cv.h>
 #include <highgui.h>
-#include "../include/ImgTextStream.hpp"
+#include "../include/imgtextstream.hpp"
 #include "VirtualCamera.h"
 
 #define IMG_FILENAME "circle.bmp"

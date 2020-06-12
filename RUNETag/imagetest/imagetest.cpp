@@ -84,7 +84,7 @@ int main (int argc, char** argv)
 
 
     
-    /*
+
     std::vector< cv::runetag::EllipsePoint > ellipses;
     cv::Mat dbgframe = frame.clone();
     for( int i=0; i<foundEllipses.size(); ++i )
@@ -93,12 +93,13 @@ int main (int argc, char** argv)
         cv::runetag::AuxRenderer::drawEllipsePoint( dbgframe, ellipses.back(), intrinsics, CV_RGB(0,255,0));
     }
     cv::imwrite("ellipses.png", dbgframe );
-    /**/
+
 
 
     std::vector< cv::runetag::MarkerDetected > tags_found;
     markerDetector.dbgimage = frame.clone();
     markerDetector.detectMarkers( foundEllipses, tags_found);
+
 
 
     //bool poseok;

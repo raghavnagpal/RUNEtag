@@ -96,12 +96,13 @@
 
 
  target_link_libraries(RUNETagGenerator Qt5::Widgets Qt5::Gui Qt5::PrintSupport
-								  ${OpenCV_LIBS} 
-								  "${PROJECT_SOURCE_DIR}/../dist/lib/libRUNETag.a"
-								  ntl
-								  #${Boost_LIBRARIES} 
-								  #${QWT_LIBRARY}
-								  #${POCO_FOUNDATION_LIBRARY}
-								  )
+         ${OpenCV_LIBS}
+         #"${PROJECT_SOURCE_DIR}/../dist/lib/libRUNETag.a"
+         "/home/taira/work/RUNEtag/RUNETag/cmake-build-release/libRUNETag.a"
+         ntl
+         #${Boost_LIBRARIES}
+         #${QWT_LIBRARY}
+         #${POCO_FOUNDATION_LIBRARY}
+         )
 
  install( TARGETS RUNETagGenerator DESTINATION bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )

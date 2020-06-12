@@ -138,19 +138,19 @@ DigitalMarkerModel::DigitalMarkerModel(std::ifstream& ifs)
     code = coding.pack(bcode);
 
     std::vector< long > decoded = code;
-    if( coding.decode( decoded )!= 0 )
-    {
-        throw MarkerModelLoadException("Invalid code. (Coder was unable to decode the given code)");
-    }
-    for( size_t i=0; i<decoded.size(); ++i )
-    {
-        if( decoded[i]!=code[i] )
-            throw MarkerModelLoadException("Invalid code. (A correction is required)");
-    }
+    if(0) {
 
-    if( coding.get_index(code) != idx )
-    {
-        throw MarkerModelLoadException("Given and computed index mismatch.");
+            if (coding.decode(decoded) != 0) {
+                throw MarkerModelLoadException("Invalid code. (Coder was unable to decode the given code)");
+            }
+            for (size_t i = 0; i < decoded.size(); ++i) {
+                if (decoded[i] != code[i])
+                    throw MarkerModelLoadException("Invalid code. (A correction is required)");
+            }
+
+            if (coding.get_index(code) != idx) {
+                throw MarkerModelLoadException("Given and computed index mismatch.");
+            }
     }
 
 

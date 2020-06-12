@@ -42,6 +42,7 @@ INSTALL( DIRECTORY "${PROJECT_SOURCE_DIR}/include" DESTINATION . )
 SET( RUNETAG_SRCS 
 		auxmath.cpp
 		auxrenderer.cpp
+		digitalmarkermodel.cpp
 		ellipsefitter.cpp
 		ellipsepoint.cpp
 		fpscounter.cpp
@@ -94,6 +95,10 @@ ENDIF()
 
 IF( BUILD_VIRTUALCAMERA )
 ADD_SUBDIRECTORY( virtualcamera )
+ENDIF()
+
+IF( IMAGE_TEST )
+	ADD_SUBDIRECTORY( imagetest )
 ENDIF()
 
 MESSAGE( STATUS )

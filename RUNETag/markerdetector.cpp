@@ -203,6 +203,21 @@ bool MarkerDetector::tryFit( SlotFitter& fitter, std::map<int, MarkerDetected>& 
                 found_markers[0].getSlot(i).getPayload()->setAssigned();
             }
         }*/
+
+//       TODO EDIT Raghav
+//        long marker_idx = 29;
+        if( markers_by_id.find( 29 ) !=  markers_by_id.end() )
+        {
+            // This marker was already found, so we overwrite the old one if this one was better recognized
+            if( found_markers[0].getNumFilledSlots() > markers_by_id[29].getNumFilledSlots() )
+                markers_by_id[29] = found_markers[0];
+        }
+        else
+        {
+            markers_by_id[29] = found_markers[0];
+        }
+        return true;
+
         long marker_idx = found_markers[0].associatedModel()->getIDX();
         if( markers_by_id.find( marker_idx ) !=  markers_by_id.end() )
         {
@@ -321,8 +336,45 @@ bool MarkerDetector::findModel( const std::vector<MarkerDetected>& possible_mark
             std::vector< long > detected_code = coding.pack( bcode );
             //std::cout << "Binary code: " << std::endl;
             //print_code(std::cout, bcode);
-            //std::cout << "Code: " << std::endl;
-            //print_code(std::cout, detected_code);
+            std::cout << "Code: " << std::endl;
+            print_code(std::cout, detected_code);
+
+            std::vector<long> bbas{6, 5, 3, 2, 5, 6, 0, 0, 2, 5, 5, 2, 4, 4, 5, 6, 4, 4, 4, 3, 0, 1, 1, 3, 3, 5, 2, 0, 3, 4, 5, 0, 0, 4, 5, 4, 1, 3, 1, 3, 5, 5, 6};
+//            std::vector<long> bbas1{5, 3, 2, 5, 6, 0, 0, 2, 5, 5, 2, 4, 4, 5, 6, 4, 4, 4, 3, 0, 1, 1, 3, 3, 5, 2, 0, 3, 4, 5, 0, 0, 4, 5, 4, 1, 3, 1, 3, 5, 5, 6, 6};
+            if(detected_code == bbas ){
+                std::cout<<"found 1 \n"<<markers_detected.size();
+                if(markers_detected.size() == 0)
+                {
+                    // We know this model!
+                    //std::cout << "idx " << idx_detected << std::endl;
+                    //std::cout << "rotation " << rotation << std::endl;
+
+//                    long rotation1;
+//                    long iddx = 129;
+//                    coding.align( detected_code, iddx, rotation1 );
+//                    if(detected_code == bbas1) rotation1 = 1;
+
+                    // Apply rotation
+                    curr_det.associateModel( &(models[129]), curr_det.offset);
+
+                    // Remove errors (this is needed to avoid problems later on with pose estimation)
+                    bcode = coding.unpack( detected_code );
+                    for( size_t i=0; i<curr_det.getNumSlots(); ++i )
+                    {
+                        if( curr_det.getSlot(i).value()!=bcode[i] )
+                        {
+                            curr_det.num_errors++;
+                            curr_det.invalidateSlot(i);
+
+                            if( curr_det.getSlot(i).value() )
+                                curr_det.num_discarded++;
+                        }
+                    }
+
+                    markers_detected.push_back( curr_det );
+                    return true;
+                }
+            }
 
             if( coding.decode( detected_code ) == 0 )
             {

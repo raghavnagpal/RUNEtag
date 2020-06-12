@@ -1,5 +1,6 @@
 #include "VirtualCamera.h"
 #include "Camera.h"
+#include <opencv2/imgproc.hpp>
 
 using namespace cvlab;
 
@@ -119,7 +120,7 @@ inline bool segmentPlaneIntersect( cv::Mat p0, cv::Mat p1, cv::Mat plane_origin,
 cvlab::VirtualCamera::VirtualCamera( const cv::Mat _img, float fx, float fy ) : pImpl( new VirtualCameraImpl(_img,fx,fy) ), img( _img.clone() ) {}
 
 
-cvlab::VirtualCamera::VirtualCamera( IplImage* _img, float fx, float fy ) : pImpl( new VirtualCameraImpl(_img,fx,fy) ), img( cv::Mat(_img).clone() ) {}
+//cvlab::VirtualCamera::VirtualCamera( IplImage* _img, float fx, float fy ) : pImpl( new VirtualCameraImpl(_img,fx,fy) ), img( cv::Mat(_img).clone() ) {}
 
 VirtualCamera::~VirtualCamera() {
     delete pImpl;
@@ -221,6 +222,8 @@ bool VirtualCamera::snap() {
     }
 
     cv::remap( img, snapshot, mapx, mapy, cv::INTER_LINEAR );
+//    remap( img, snapshot, mapx, mapy, CV_INTER_LINEAR );
+//    cvRemap( img, snapshot, mapx, mapy, CV_INTER_LINEAR );
     return true;
 }
 

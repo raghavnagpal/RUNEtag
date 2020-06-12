@@ -71,8 +71,12 @@ std::vector<long> Coding::pack( const std::vector<bool> bitcode )
 
         idx+=3;
         cidx++;
-    }
 
+    }
+//    for(int i =0;i<43;i++){
+//        std::cout<<code[i]<<" ";
+//    }
+//    std::cout<<"<->"<<std::endl;
     return code;
 }
 
@@ -84,6 +88,8 @@ inline void Syndrome(NTL::zz_pE& S, const NTL::zz_pX code, const NTL::zz_pE ai)
 
 
 static long generator[43] = {1, 1, 6, 4, 6, 0, 3, 1, 5, 3, 5, 4, 0, 4, 6, 3, 4, 6, 3, 6, 4, 3, 6, 4, 0, 4, 5, 3, 5, 1, 3, 0, 6, 4, 6, 1, 1, 0, 0, 0, 0, 0, 0};
+//static long generator[43] = {6, 5, 3, 2, 5, 6, 0, 0, 2, 5, 5, 2, 4, 4, 5, 6, 4, 4, 4, 3, 0, 1, 1, 3, 3, 5, 2, 0, 3, 4, 5, 0, 0, 4, 5, 4, 1, 3, 1, 3, 5, 5, 6};
+
 
 
 Coding::Coding() : start_range(8), end_range(36), code_length(43), num_words(117649), align_k(4), align_p(173), align_root(2), align_logn1(89)

@@ -125,7 +125,9 @@ namespace runetag {
         }
 
         friend ImgTextStream& operator<<( ImgTextStream& _ts, endl_type e ) {
-            cv::Size tsize = cv::getTextSize( std::string("M"), cv::FONT_HERSHEY_SIMPLEX, _ts.fontScale, _ts.thickness, 0 ); 
+            cv::Size tsize = cv::getTextSize( std::string("M"), cv::FONT_HERSHEY_SIMPLEX, _ts.fontScale, _ts.thickness, 0 );
+//            cv::Size tsize = cvgetTextSize( std::string("M"), cv::FONT_HERSHEY_SIMPLEX, _ts.fontScale, _ts.thickness, 0 );
+
             _ts.x = _ts.base_x;
             _ts.y += tsize.height+3;
             return _ts;
